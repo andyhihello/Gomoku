@@ -103,7 +103,7 @@ class GobangGUI:
         else:
             text = self.font.render('Tie game!', True, BLACK)
         text_rect = text.get_rect()
-        text_rect.center = (self.width // 2, self.height // 2)
+        text_rect.center = (self.width // 2, self.height // 10 * 8.25)
         self.screen.blit(text, text_rect)
         pygame.display.flip()
         
