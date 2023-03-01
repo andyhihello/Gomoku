@@ -51,7 +51,7 @@ class GobangGUI:
     def __init__(self, game):
         self.game = game
         self.width = 640
-        self.height = 800
+        self.height = 760
         self.cell_size = self.width // self.game.n
         self.screen = pygame.display.set_mode((self.width, self.height))
         pygame.font.init()
@@ -75,7 +75,7 @@ class GobangGUI:
                             self.game_over = True  
                 
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_r:  # 当用户按下 R 键时
+                    if event.key == pygame.K_r: 
                         self.reset_game()
         
             self.draw_board()
@@ -84,20 +84,27 @@ class GobangGUI:
             pygame.display.flip()
             
     def draw_board(self):
-        self.screen.fill(WHITE)
+        backgroud_image = pygame.image.load("五子棋/background.jpg")
+        background_rect = pygame.Rect(0,0,self.width,self.height)
+        pygame.draw.rect = (self.screen,(0,0,0),background_rect)
+        self.screen.blit(backgroud_image,background_rect)
         for i in range(self.game.n):
             pygame.draw.line(self.screen, BLACK, (self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 
                              (self.width - self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 2)
             pygame.draw.line(self.screen, BLACK, (i * self.cell_size + self.cell_size // 2, self.cell_size // 2), 
-                             (i * self.cell_size + self.cell_size // 2, self.height - self.cell_size // 2-160), 2)
+                             (i * self.cell_size + self.cell_size // 2, self.height - self.cell_size // 2-120), 2)
         for i in range(self.game.n):
             for j in range(self.game.n):
                 if self.game.board[i][j] == 1:
                     pygame.draw.circle(self.screen, RED, (j * self.cell_size + self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 
-                               self.cell_size // 3, 0)
+                               self.cell_size // 2.7, 0)
+                    pygame.draw.circle(self.screen, BLACK, (j * self.cell_size + self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 
+                               self.cell_size // 2.7, 1)
                 elif self.game.board[i][j] == 2:
                     pygame.draw.circle(self.screen, BLUE, (j * self.cell_size + self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 
-                               self.cell_size // 3, 0)
+                               self.cell_size // 2.7, 0)
+                    pygame.draw.circle(self.screen, BLACK, (j * self.cell_size + self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 
+                               self.cell_size // 2.7, 1)
 
     def show_result(self):
         if self.game.winner == 1:
@@ -107,7 +114,7 @@ class GobangGUI:
         else:
             text = self.font.render('Tie game!', True, BLACK)
         text_rect = text.get_rect()
-        text_rect.center = (self.width // 2, self.height // 10 * 8.25)
+        text_rect.center = (self.width // 2, self.height // 10 * 8.5)
         self.screen.blit(text, text_rect)
 
     def reset_game(self):
@@ -120,6 +127,3 @@ class GobangGUI:
 pygame.init()
 gui = GobangGUI(Game())
 gui.run()
-
-
-
