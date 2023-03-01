@@ -8,7 +8,7 @@ RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 
 class Game:
-    def __init__(self, n=15):
+    def __init__(self, n=16):
         self.n = n
         self.board = np.zeros((n, n))
         self.current_player = 1
@@ -51,7 +51,7 @@ class GobangGUI:
     def __init__(self, game):
         self.game = game
         self.width = 640
-        self.height = 640
+        self.height = 800
         self.cell_size = self.width // self.game.n
         self.screen = pygame.display.set_mode((self.width, self.height))
         pygame.font.init()
@@ -72,7 +72,7 @@ class GobangGUI:
                     if self.game.play(i, j):
                         self.draw_board()
                         if self.game.is_over:
-                            self.game_over = True  # 设置游戏结束的标记
+                            self.game_over = True  
         
             self.draw_board()
             if self.game_over:
@@ -85,7 +85,7 @@ class GobangGUI:
             pygame.draw.line(self.screen, BLACK, (self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 
                              (self.width - self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 2)
             pygame.draw.line(self.screen, BLACK, (i * self.cell_size + self.cell_size // 2, self.cell_size // 2), 
-                             (i * self.cell_size + self.cell_size // 2, self.height - self.cell_size // 2), 2)
+                             (i * self.cell_size + self.cell_size // 2, self.height - self.cell_size // 2-160), 2)
         for i in range(self.game.n):
             for j in range(self.game.n):
                 if self.game.board[i][j] == 1:
@@ -109,8 +109,7 @@ class GobangGUI:
         
 
 pygame.init()
-game = Game()
-gui = GobangGUI(game)
+gui = GobangGUI(Game())
 gui.run()
 
 
