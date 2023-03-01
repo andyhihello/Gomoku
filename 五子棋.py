@@ -84,7 +84,7 @@ class GobangGUI:
             pygame.display.flip()
             
     def draw_board(self):
-        backgroud_image = pygame.image.load("五子棋/background.jpg")
+        backgroud_image = pygame.image.load("Gomoku/background.jpg")
         background_rect = pygame.Rect(0,0,self.width,self.height)
         pygame.draw.rect = (self.screen,(0,0,0),background_rect)
         self.screen.blit(backgroud_image,background_rect)
