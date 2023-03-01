@@ -73,6 +73,10 @@ class GobangGUI:
                         self.draw_board()
                         if self.game.is_over:
                             self.game_over = True  
+                
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_r:  # 当用户按下 R 键时
+                        self.reset_game()
         
             self.draw_board()
             if self.game_over:
@@ -105,6 +109,11 @@ class GobangGUI:
         text_rect = text.get_rect()
         text_rect.center = (self.width // 2, self.height // 10 * 8.25)
         self.screen.blit(text, text_rect)
+
+    def reset_game(self):
+        self.game = Game()
+        self.game_over = False
+        self.draw_board()
         pygame.display.flip()
         
 
