@@ -47,7 +47,7 @@ class Game:
                 return True, player
         return False, None
 
-class GobangGUI:
+class GUI:
     def __init__(self, game):
         self.game = game
         self.width = 640
@@ -77,7 +77,6 @@ class GobangGUI:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_r: 
                         self.reset_game()
-        
             self.draw_board()
             if self.game_over:
                 self.show_result()
@@ -88,7 +87,7 @@ class GobangGUI:
         background_rect = pygame.Rect(0,0,self.width,self.height)
         pygame.draw.rect = (self.screen,(0,0,0),background_rect)
         self.screen.blit(backgroud_image,background_rect)
-
+    
 
         for i in range(self.game.n):
             pygame.draw.line(self.screen, BLACK, (self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 
@@ -107,13 +106,6 @@ class GobangGUI:
                                self.cell_size // 2.7, 0)
                     pygame.draw.circle(self.screen, BLACK, (j * self.cell_size + self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 
                                self.cell_size // 2.7, 1)
-    def draw_button():
-        button_rect = pygame.Rect(0,0,self.width,self.height)
-        pygame.draw.rect(self.screen, WHITE, button_rect)
-        text = self.font.render("Click me", True, BLACK)
-        text_rect = text.get_rect()
-        text_rect.center = button_rect.center
-        self.screen.blit(text, text_rect)
 
     def show_result(self):
         if self.game.winner == 1:
@@ -126,6 +118,11 @@ class GobangGUI:
         text_rect.center = (self.width // 2, self.height // 10 * 8.5)
         self.screen.blit(text, text_rect)
 
+        text_restart = self.font.render("Press R to restart", True,BLACK)
+        text_restart_rect = text.get_rect()
+        text_restart_rect.center = (self.width // 2.1, self.height // 10 * 9)
+        self.screen.blit(text_restart,text_restart_rect)
+
     def reset_game(self):
         self.game = Game()
         self.game_over = False
@@ -134,5 +131,5 @@ class GobangGUI:
         
 
 pygame.init()
-gui = GobangGUI(Game())
+gui = GUI(Game())
 gui.run()
