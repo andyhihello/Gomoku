@@ -15,6 +15,7 @@ class Game:
         self.is_over = False
         self.winner = None
         
+        
     def play(self, x, y):
         if self.board[x][y] != 0 or self.is_over:
             return False
@@ -78,6 +79,7 @@ class GUI:
                     if event.key == pygame.K_r: 
                         self.reset_game()
             self.draw_board()
+            self.botton()
             if self.game_over:
                 self.show_result()
             pygame.display.flip()
@@ -87,7 +89,6 @@ class GUI:
         background_rect = pygame.Rect(0,0,self.width,self.height)
         pygame.draw.rect = (self.screen,(0,0,0),background_rect)
         self.screen.blit(backgroud_image,background_rect)
-    
 
         for i in range(self.game.n):
             pygame.draw.line(self.screen, BLACK, (self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 
@@ -106,6 +107,13 @@ class GUI:
                                self.cell_size // 2.7, 0)
                     pygame.draw.circle(self.screen, BLACK, (j * self.cell_size + self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 
                                self.cell_size // 2.7, 1)
+    def botton(self):
+        back_button_rect = pygame.Rect(20, self.height - 80, 120, 60)
+        pygame.draw.rect(self.screen, RED, back_button_rect)
+        back_button_text = self.font.render('Back', True, WHITE)
+        back_button_text_rect = back_button_text.get_rect()
+        back_button_text_rect.center = back_button_rect.center
+        self.screen.blit(back_button_text, back_button_text_rect) 
 
     def show_result(self):
         if self.game.winner == 1:
