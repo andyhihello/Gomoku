@@ -15,7 +15,6 @@ class Game:
         self.is_over = False
         self.winner = None
         
-        
     def play(self, x, y):
         if x > 15 or y > 15:
             return False
@@ -61,7 +60,7 @@ class GUI:
         self.font_path = 'C:\Windows\Fonts\kaiu.ttf'
         self.font = pygame.font.Font(self.font_path, 40)
         self.game_over = False
-        self.back_button_rect = pygame.Rect(560,630,self.width,self.height)
+        self.undo_button_rect = pygame.Rect(560,630,self.width,self.height)
         
 
     def run(self):
@@ -78,14 +77,14 @@ class GUI:
                         self.draw_board()
                         if self.game.is_over:
                             self.game_over = True 
-                    if self.back_button_rect.collidepoint(x, y): 
+                    if self.undo_button_rect.collidepoint(x, y): 
                         print('hihello')
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_r: 
                         self.reset_game()
                 
             self.draw_board()
-            self.back_botton()
+            self.undo_botton()
             if self.game_over:
                 self.show_result()
             pygame.display.flip()
@@ -113,9 +112,9 @@ class GUI:
                                self.cell_size // 2.7, 0)
                     pygame.draw.circle(self.screen, BLACK, (j * self.cell_size + self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 
                                self.cell_size // 2.7, 1)
-    def back_botton(self):
+    def undo_botton(self):
         undo_image = pygame.image.load("undo.jpg")
-        self.screen.blit(undo_image, self.back_button_rect) 
+        self.screen.blit(undo_image, self.undo_button_rect) 
 
     def show_result(self):
         if self.game.winner == 1:
