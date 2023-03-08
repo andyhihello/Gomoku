@@ -88,6 +88,8 @@ class GobangGUI:
         background_rect = pygame.Rect(0,0,self.width,self.height)
         pygame.draw.rect = (self.screen,(0,0,0),background_rect)
         self.screen.blit(backgroud_image,background_rect)
+
+
         for i in range(self.game.n):
             pygame.draw.line(self.screen, BLACK, (self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 
                              (self.width - self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 2)
@@ -105,6 +107,13 @@ class GobangGUI:
                                self.cell_size // 2.7, 0)
                     pygame.draw.circle(self.screen, BLACK, (j * self.cell_size + self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 
                                self.cell_size // 2.7, 1)
+    def draw_button():
+        button_rect = pygame.Rect(0,0,self.width,self.height)
+        pygame.draw.rect(self.screen, WHITE, button_rect)
+        text = self.font.render("Click me", True, BLACK)
+        text_rect = text.get_rect()
+        text_rect.center = button_rect.center
+        self.screen.blit(text, text_rect)
 
     def show_result(self):
         if self.game.winner == 1:
