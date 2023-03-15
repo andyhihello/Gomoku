@@ -1,7 +1,6 @@
 import pygame
 import numpy as np
 
-# 定義顏色常數
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
@@ -60,7 +59,7 @@ class GUI:
         self.font_path = 'C:\Windows\Fonts\kaiu.ttf'
         self.font = pygame.font.Font(self.font_path, 40)
         self.game_over = False
-        self.undo_button_rect = pygame.Rect(560,630,self.width,self.height)
+        self.undo_button_rect = pygame.Rect(560,630,60,60)
         
 
     def run(self):
@@ -124,12 +123,12 @@ class GUI:
         else:
             text = self.font.render('Tie game!', True, BLACK)
         text_rect = text.get_rect()
-        text_rect.center = (self.width // 2, self.height // 10 * 8.5)
+        text_rect.center = (self.width // 2, self.height // 10 * 8.7)
         self.screen.blit(text, text_rect)
 
         text_restart = self.font.render("Press R to restart", True,BLACK)
         text_restart_rect = text.get_rect()
-        text_restart_rect.center = (self.width // 2.1, self.height // 10 * 9)
+        text_restart_rect.center = (self.width // 2.1, self.height // 10 * 9.3)
         self.screen.blit(text_restart,text_restart_rect)
 
     def reset_game(self):
