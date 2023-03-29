@@ -123,7 +123,6 @@ class GUI:
             self.game.undo_round -=1
             self.game.board[self.game.undo_board[self.game.undo_round][0]][self.game.undo_board[self.game.undo_round][1]] = 0
             self.game.undo_board.pop()
-            print(self.game.undo_board)
             self.game.current_player = 3 - self.game.current_player
             self.draw_board()
 
