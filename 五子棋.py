@@ -23,7 +23,7 @@ class Game:
             return False
 
         self.undo_board.append((x,y))
-        print(self.undo_board)
+        self.undo_round +=1
         self.board[x][y] = self.current_player
         self.current_player = 3 - self.current_player
         
@@ -63,7 +63,7 @@ class GUI:
         self.font_path = 'C:\Windows\Fonts\kaiu.ttf'
         self.font = pygame.font.Font(self.font_path, 40)
         self.game_over = False
-        self.undo_button_rect = pygame.Rect(560,630,60,60)
+        self.undo_button_rect = pygame.Rect(560,650,60,60)
         
 
     def run(self):
@@ -80,7 +80,7 @@ class GUI:
                         self.draw_board()
                         if self.game.is_over:
                             self.game_over = True 
-                    if self.undo_button_rect.collidepoint(x, y): 
+                    if self.undo_button_rect.collidepoint(x, y) and self.game_over == False: 
                         self.undo()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_r: 
@@ -121,8 +121,10 @@ class GUI:
     def undo(self):
         if self.game.undo_round >0:
             self.game.undo_round -=1
-            self.game.board[self.game.undo_round[0]][self.game.undo_round[1]] = 0
-            print(self.game.board)
+            self.game.board[self.game.undo_board[self.game.undo_round][0]][self.game.undo_board[self.game.undo_round][1]] = 0
+            self.game.undo_board.pop()
+            print(self.game.undo_board)
+            self.game.current_player = 3 - self.game.current_player
             self.draw_board()
 
     def show_result(self):
