@@ -13,13 +13,17 @@ class Game:
         self.current_player = 1
         self.is_over = False
         self.winner = None
+        self.undo_board = []
+        self.undo_round = 0
         
     def play(self, x, y):
         if x > 15 or y > 15:
             return False
         elif self.board[x][y] != 0 or self.is_over:
             return False
-        
+
+        self.undo_board.append((x,y))
+        print(self.undo_board)
         self.board[x][y] = self.current_player
         self.current_player = 3 - self.current_player
         
@@ -77,13 +81,12 @@ class GUI:
                         if self.game.is_over:
                             self.game_over = True 
                     if self.undo_button_rect.collidepoint(x, y): 
-                        print('hihello')
+                        self.undo()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_r: 
                         self.reset_game()
                 
             self.draw_board()
-            self.undo_botton()
             if self.game_over:
                 self.show_result()
             pygame.display.flip()
@@ -111,9 +114,16 @@ class GUI:
                                self.cell_size // 2.7, 0)
                     pygame.draw.circle(self.screen, BLACK, (j * self.cell_size + self.cell_size // 2, i * self.cell_size + self.cell_size // 2), 
                                self.cell_size // 2.7, 1)
-    def undo_botton(self):
+
         undo_image = pygame.image.load("undo.jpg")
         self.screen.blit(undo_image, self.undo_button_rect) 
+
+    def undo(self):
+        if self.game.undo_round >0:
+            self.game.undo_round -=1
+            self.game.board[self.game.undo_round[0]][self.game.undo_round[1]] = 0
+            print(self.game.board)
+            self.draw_board()
 
     def show_result(self):
         if self.game.winner == 1:
